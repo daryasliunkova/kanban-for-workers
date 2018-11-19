@@ -10,10 +10,9 @@ public class HistoryItem {
     @Id
     @GeneratedValue
     private int id;
-  /*  @Column(name = "issueCase")
     @OneToOne
-    @JoinColumn(name = "case_id")
-    private Case issueCase;*/
+    @JoinColumn(name = "caseId")
+    private Case issueCase;
     @Column(name = "status")
     private Status status;
     @Column(name = "changeDate")

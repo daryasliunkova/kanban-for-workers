@@ -1,12 +1,11 @@
 package com.dsliunkova.kanbanforworkers.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Date;
+
 
 @Entity
+@Table(name = "REPAIRCASE")
 public class Case {
     @Id
     @GeneratedValue
@@ -15,9 +14,9 @@ public class Case {
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "startDate")
+    @Column(name = "startdate")
     private Date startDate;
-    @Column(name = "endDate")
+    @Column(name = "enddate")
     private Date endDate;
 
     public Case(String name, String description, Date startDate, Date endDate) {
@@ -25,6 +24,9 @@ public class Case {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public Case() {
     }
 
     public String getName() {

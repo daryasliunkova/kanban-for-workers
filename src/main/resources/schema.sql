@@ -1,5 +1,5 @@
 drop table User if exists;
-drop table Case if exists;
+drop table repairCase if exists;
 drop table  historyItem if exists;
 
 create table if not exists User (
@@ -9,7 +9,7 @@ create table if not exists User (
     ROLE varchar(40)
 );
 
-create table if not exists Case (
+create table if not exists repairCase (
     ID int PRIMARY KEY AUTO_INCREMENT,
     name varchar(40),
     description varchar(256),
@@ -19,8 +19,10 @@ create table if not exists Case (
 
 create table if not exists historyItem (
     ID int PRIMARY KEY AUTO_INCREMENT,
+    caseID int,
     status varchar(40),
-    changeDate date
+    changeDate date,
+    FOREIGN KEY (caseID) REFERENCES repairCase(ID)
 );
 
 
