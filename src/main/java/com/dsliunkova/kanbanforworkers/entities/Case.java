@@ -1,5 +1,7 @@
 package com.dsliunkova.kanbanforworkers.entities;
 
+import com.dsliunkova.kanbanforworkers.entities.enums.Status;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -10,14 +12,27 @@ public class Case {
     @Id
     @GeneratedValue
     private int id;
+    @OneToOne
+    @JoinColumn(name = "case_id", nullable = true)
+    private Case problem;
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User createdBy;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "startdate")
+    @Column(name = "start_date")
     private Date startDate;
-    @Column(name = "enddate")
+    @Column(name = "end_date", nullable = true)
     private Date endDate;
+    @Enumerated
+    @Column(name = "case_status")
+    private Status status;
+
 
     public Case(String name, String description, Date startDate, Date endDate) {
         this.name = name;

@@ -22,11 +22,4 @@ public class KanbanForWorkersApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KanbanForWorkersApplication.class, args);
 	}
-
-/*	@Service
-	public static class MyService {
-		public String sayHi() {
-			return userService.getUserById(1).get().toString();
-		}
-	}*/
 }

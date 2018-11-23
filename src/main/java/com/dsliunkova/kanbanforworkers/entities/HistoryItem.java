@@ -11,12 +11,21 @@ public class HistoryItem {
     @GeneratedValue
     private int id;
     @OneToOne
-    @JoinColumn(name = "caseId")
+    @JoinColumn(name = "case_id")
     private Case issueCase;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @Column(name = "status")
     private Status status;
-    @Column(name = "changeDate")
+    @Column(name = "change_date")
     private Date changeDate;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "old_value")
+    private String oldValue;
+    @Column(name = "new_value")
+    private String newValue;
 
     public HistoryItem(Case issueCase, Status status, Date changeDate) {
 
