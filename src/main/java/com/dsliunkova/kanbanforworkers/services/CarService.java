@@ -21,6 +21,9 @@ public class CarService {
     public CarService() {
     }
 
+    public List<Car> getCarsByOwnerId(int id) {
+        return repository.findAllByOwnerId(id);
+    }
     public List<Car> getCars() {
         return Lists.newArrayList(repository.findAll());
     }

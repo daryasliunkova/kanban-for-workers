@@ -32,6 +32,19 @@
 			<artifactId>guava</artifactId>
 			<version>27.0-jre</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.appreciated/app-layout-addon -->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-app-layout-flow</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.vaadin/vaadin-tabs-flow -->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-tabs-flow</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
 
 		<!-- H2 Database -->
 		<dependency>

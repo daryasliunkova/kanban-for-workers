@@ -1,34 +1,40 @@
 package com.dsliunkova.kanbanforworkers.ui;
 
-import com.dsliunkova.kanbanforworkers.KanbanForWorkersApplication;
-import com.dsliunkova.kanbanforworkers.entities.Case;
-import com.dsliunkova.kanbanforworkers.entities.User;
-import com.dsliunkova.kanbanforworkers.repositories.UserRepository;
-import com.dsliunkova.kanbanforworkers.services.CaseService;
-import com.dsliunkova.kanbanforworkers.services.UserService;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.applayout.AppLayoutMenu;
+import com.vaadin.flow.component.applayout.AppLayoutMenuItem;
+import com.vaadin.flow.component.applayout.MenuItemClickEvent;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-@Route
+@Route("route")
 public class MainView extends VerticalLayout {
-    private UserService service;
-    private CaseService caseService;
-
     @Autowired
-    public MainView(UserService service, CaseService caseService) {
-        this.caseService = caseService;
-        this.service = service;
-        add(new Button("Users", e-> add(showUsers())));
-        add(new Button("Cases", e -> add(showCases())));
+    public MainView(HeaderLayout headerLayout) {
+        add(headerLayout);
 
+
+
+       /* menu.addMenuItems(
+                new AppLayoutMenuItem(VaadinIcon.CLIPBOARD_TEXT.create(), "History"),
+                new AppLayoutMenuItem(VaadinIcon.SIGN_OUT.create(), "Sign out"));
+        Component content = new Span(new H3("Page title"),
+                new Span("Page content"));
+        appLayout.setContent(content);
+        add(appLayout);*/
+
+       // AppLayoutMenuItem
 
     }
 
-    public Grid showUsers() {
+  /*  public Grid showUsers() {
         Grid<User> grid = new Grid<>();
         grid.setItems(service.getUsers());
 
@@ -47,7 +53,7 @@ public class MainView extends VerticalLayout {
         cases.addColumn(Case::getStartDate);
         cases.addColumn(Case::getEndDate);
         return cases;
-    }
+    }*/
 
    /* public MainView() {
         add(new Button("Click me", e -> Notification.show(service.getUserById(1).toString())));

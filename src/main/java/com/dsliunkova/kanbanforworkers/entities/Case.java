@@ -7,7 +7,7 @@ import java.sql.Date;
 
 
 @Entity
-@Table(name = "REPAIRCASE")
+@Table(name = "repair_case")
 public class Case {
     @Id
     @GeneratedValue
