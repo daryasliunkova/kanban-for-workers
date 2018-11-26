@@ -21,6 +21,10 @@ public class User {
     private Role role;
     @Column(name = "link_google")
     private String linkGoogle;
+    @Column(name = "login")
+    private String login;
+    @Column(name = "password")
+    private String password;
 
     public User(String surname, String name, Role role) {
         this.surname = surname;
@@ -63,5 +67,45 @@ public class User {
                 ", name='" + name + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getLinkGoogle() {
+        return linkGoogle;
+    }
+
+    public void setLinkGoogle(String linkGoogle) {
+        this.linkGoogle = linkGoogle;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

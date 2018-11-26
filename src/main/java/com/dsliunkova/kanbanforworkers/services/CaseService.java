@@ -25,4 +25,8 @@ public class CaseService {
     public List<Case> getCases() {
         return Lists.newArrayList(caseRepository.findAll());
     }
+
+    public List<Case> getCasesByOwnerAndCar(int carId) {
+        return caseRepository.findAllByCarId(carId);
+    }
 }

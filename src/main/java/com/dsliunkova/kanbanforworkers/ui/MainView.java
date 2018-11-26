@@ -1,61 +1,107 @@
 package com.dsliunkova.kanbanforworkers.ui;
 
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.applayout.AppLayoutMenu;
-import com.vaadin.flow.component.applayout.AppLayoutMenuItem;
-import com.vaadin.flow.component.applayout.MenuItemClickEvent;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.VaadinIcon;
+import com.dsliunkova.kanbanforworkers.services.UserService;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.PasswordField;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinRequest;
+import com.vaadin.flow.server.VaadinService;
+import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
-@Route("route")
+@Route
 public class MainView extends VerticalLayout {
+    private UserService userService;
+    private CarLayout carLayout;
+
     @Autowired
-    public MainView(HeaderLayout headerLayout) {
-        add(headerLayout);
+    public MainView(UserService userService, CarLayout carLayout) {
+        this.userService = userService;
+        this.carLayout = carLayout;
 
 
+        Dialog dialog = new Dialog();
+        dialog.setWidth("400px");
+        dialog.setHeight("200px");
 
-       /* menu.addMenuItems(
-                new AppLayoutMenuItem(VaadinIcon.CLIPBOARD_TEXT.create(), "History"),
-                new AppLayoutMenuItem(VaadinIcon.SIGN_OUT.create(), "Sign out"));
-        Component content = new Span(new H3("Page title"),
-                new Span("Page content"));
-        appLayout.setContent(content);
-        add(appLayout);*/
+        FormLayout layoutWithFormItems = new FormLayout();
 
-       // AppLayoutMenuItem
+        TextField login = new TextField();
+        login.setPlaceholder("Login");
+        layoutWithFormItems.addFormItem(login, "Login");
 
+
+        PasswordField password = new PasswordField();
+        password.setPlaceholder("Password");
+        layoutWithFormItems.addFormItem(password, "Password");
+
+        VerticalLayout buttonLayout = new VerticalLayout();
+        Button okbutton = new Button("OK", buttonClickEvent -> {
+            String loginText = login.getValue();
+            String passwordText = password.getValue();
+
+            Notification.show(userService.getUserByLoginAndPassword(loginText, passwordText).toString());
+            VaadinService.getCurrentRequest().setAttribute("user", userService.getUserByLoginAndPassword(loginText, passwordText));
+            add(carLayout.showCars());
+            dialog.close();
+        });
+
+        buttonLayout.setWidth("100%");
+        buttonLayout.setHorizontalComponentAlignment(FlexComponent.Alignment.CENTER, okbutton);
+        buttonLayout.add(okbutton);
+        dialog.add(layoutWithFormItems);
+        dialog.add(buttonLayout);
+        dialog.open();
+
+        add(dialog);
     }
 
-  /*  public Grid showUsers() {
-        Grid<User> grid = new Grid<>();
-        grid.setItems(service.getUsers());
+ /*   protected void init(VaadinRequest request) {
+        VerticalLayout verticalLayout = new VerticalLayout();
 
-        grid.addColumn(User::getName).setHeader("Name");
-        grid.addColumn(User::getSurname).setHeader("Surname");
-        grid.addColumn(User::getRole).setHeader("Role");
-        return grid;
-       //add(grid);
-    }
+        Dialog dialog = new Dialog();
+        dialog.setWidth("400px");
+        dialog.setHeight("200px");
 
-    public Grid showCases() {
-        Grid<Case> cases = new Grid<>();
-        cases.setItems(caseService.getCases());
-        cases.addColumn(Case::getName);
-        cases.addColumn(Case::getDescription);
-        cases.addColumn(Case::getStartDate);
-        cases.addColumn(Case::getEndDate);
-        return cases;
+        FormLayout layoutWithFormItems = new FormLayout();
+
+        TextField login = new TextField();
+        login.setPlaceholder("Login");
+        layoutWithFormItems.addFormItem(login, "Login");
+
+
+        PasswordField password = new PasswordField();
+        password.setPlaceholder("Password");
+        layoutWithFormItems.addFormItem(password, "Password");
+
+        VerticalLayout buttonLayout = new VerticalLayout();
+        Button okbutton = new Button("OK", buttonClickEvent -> {
+            String loginText = login.getValue();
+            String passwordText = password.getValue();
+
+            Notification.show(userService.getUserByLoginAndPassword(loginText, passwordText).toString());
+            VaadinService.getCurrentRequest().setAttribute("user", userService.getUserByLoginAndPassword(loginText, passwordText));
+            // getUI().ifPresent(ui -> ui.navigate("car"));
+            add(carLayout.showCars());
+            dialog.close();
+        });
+
+        buttonLayout.setWidth("100%");
+        buttonLayout.setHorizontalComponentAlignment(FlexComponent.Alignment.CENTER, okbutton);
+        buttonLayout.add(okbutton);
+        dialog.add(layoutWithFormItems);
+        dialog.add(buttonLayout);
+        dialog.open();
+        verticalLayout.add(dialog);
+        add(verticalLayout);
     }*/
 
-   /* public MainView() {
-        add(new Button("Click me", e -> Notification.show(service.getUserById(1).toString())));
-    }*/
 }

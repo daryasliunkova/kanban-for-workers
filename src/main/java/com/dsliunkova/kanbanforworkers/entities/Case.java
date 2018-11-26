@@ -29,7 +29,7 @@ public class Case {
     private Date startDate;
     @Column(name = "end_date", nullable = true)
     private Date endDate;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "case_status")
     private Status status;
 
@@ -74,5 +74,45 @@ public class Case {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Case getProblem() {
+        return problem;
+    }
+
+    public void setProblem(Case problem) {
+        this.problem = problem;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

@@ -92,4 +92,14 @@ public class Car {
     public void setVin(String vin) {
         this.vin = vin;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
 }

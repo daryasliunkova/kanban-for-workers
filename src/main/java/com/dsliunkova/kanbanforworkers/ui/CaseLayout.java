@@ -1,11 +1,50 @@
 package com.dsliunkova.kanbanforworkers.ui;
 
+import com.dsliunkova.kanbanforworkers.entities.Car;
+import com.dsliunkova.kanbanforworkers.entities.Case;
+import com.dsliunkova.kanbanforworkers.entities.User;
+import com.dsliunkova.kanbanforworkers.services.CaseService;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
+@Route("case")
 public class CaseLayout extends VerticalLayout{
+    private CaseService caseService;
+    private HeaderLayout headerLayout;
+
     public CaseLayout() {
 
+    }
+
+    @Autowired
+    public CaseLayout(CaseService caseService, HeaderLayout headerLayout) {
+        this.caseService = caseService;
+        this.headerLayout = headerLayout;
+        //add(showCases());
+    }
+
+    public VerticalLayout showCases() {
+        add(headerLayout);
+
+        Grid<Case> cases = new Grid<>();
+
+        Car carId = ((Car) VaadinService.getCurrentRequest().getAttribute("car"));
+        List<Case> listCars = caseService.getCasesByOwnerAndCar(carId.getId());
+
+        cases.setItems(listCars);
+        cases.addColumn(Case::getName).setHeader("Problem");
+        cases.addColumn(Case::getDescription).setHeader("Description");
+        cases.addColumn(Case::getStartDate).setHeader("Created by");
+        cases.addColumn(Case::getEndDate).setHeader("End date");
+        cases.addColumn(Case::getStatus).setHeader("Status");
+        add(cases);
+        return this;
     }
 }

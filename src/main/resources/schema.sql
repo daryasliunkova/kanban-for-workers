@@ -10,7 +10,8 @@ create table if not exists User (
     ROLE varchar(40),
     CREATED_DATE date,
     LINK_GOOGLE varchar(40),
-
+    LOGIN varchar(40),
+    PASSWORD varchar(40)
 );
 
 create table if not exists car(
@@ -27,6 +28,7 @@ create table if not exists car(
 
 create table if not exists repair_case (
     ID int PRIMARY KEY AUTO_INCREMENT,
+    case_id int,
     car_id int,
     user_id int,
     name varchar(40),
@@ -35,7 +37,8 @@ create table if not exists repair_case (
     end_date date,
     case_status varchar(40),
     FOREIGN KEY (car_id) REFERENCES car(ID),
-    FOREIGN KEY (user_id) REFERENCES user(ID)
+    FOREIGN KEY (user_id) REFERENCES user(ID),
+    FOREIGN KEY (case_id) REFERENCES repair_case(ID)
 );
 
 create table if not exists historyItem (
