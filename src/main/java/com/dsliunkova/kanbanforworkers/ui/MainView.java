@@ -1,7 +1,6 @@
 package com.dsliunkova.kanbanforworkers.ui;
 
 import com.dsliunkova.kanbanforworkers.services.UserService;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -11,10 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.VaadinService;
-import com.vaadin.flow.spring.annotation.SpringComponent;
-import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Route
@@ -27,7 +23,6 @@ public class MainView extends VerticalLayout {
         this.userService = userService;
         this.carLayout = carLayout;
 
-
         Dialog dialog = new Dialog();
         dialog.setWidth("400px");
         dialog.setHeight("200px");
@@ -37,7 +32,6 @@ public class MainView extends VerticalLayout {
         TextField login = new TextField();
         login.setPlaceholder("Login");
         layoutWithFormItems.addFormItem(login, "Login");
-
 
         PasswordField password = new PasswordField();
         password.setPlaceholder("Password");

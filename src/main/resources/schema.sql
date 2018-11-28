@@ -1,7 +1,7 @@
 drop table User if exists;
 drop table Car if exists;
 drop table repair_case if exists;
-drop table  historyItem if exists;
+drop table  history_item if exists;
 
 create table if not exists User (
     ID int PRIMARY KEY AUTO_INCREMENT,
@@ -41,12 +41,17 @@ create table if not exists repair_case (
     FOREIGN KEY (case_id) REFERENCES repair_case(ID)
 );
 
-create table if not exists historyItem (
+create table if not exists history_item (
     ID int PRIMARY KEY AUTO_INCREMENT,
-    case_id int,
+    issue_id int,
+    user_id int,
     status varchar(40),
-    changeDate date,
-    FOREIGN KEY (case_id) REFERENCES repair_case(ID)
+    change_date date,
+    description varchar(40),
+    old_value varchar(250),
+    new_value varchar(250),
+    FOREIGN KEY (issue_id) REFERENCES repair_case(ID),
+    FOREIGN KEY (user_id) REFERENCES user(ID)
 );
 
 

@@ -33,4 +33,8 @@ public class HistoryItemService {
     public void insertHistoryItem(HistoryItem historyItem) {
         repository.save(historyItem);
     }
+
+    public List<HistoryItem> getHistoryByCaseId(int id) {
+        return repository.findAllByIssueId(id);
+    }
 }

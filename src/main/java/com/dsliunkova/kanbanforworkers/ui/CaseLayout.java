@@ -6,6 +6,8 @@ import com.dsliunkova.kanbanforworkers.entities.User;
 import com.dsliunkova.kanbanforworkers.services.CaseService;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.selection.SelectionEvent;
+import com.vaadin.flow.data.selection.SelectionListener;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.util.List;
 @Route("case")
 public class CaseLayout extends VerticalLayout{
     private CaseService caseService;
+    private HistoryLayout historyLayout;
     private HeaderLayout headerLayout;
 
     public CaseLayout() {
@@ -24,16 +27,21 @@ public class CaseLayout extends VerticalLayout{
     }
 
     @Autowired
-    public CaseLayout(CaseService caseService, HeaderLayout headerLayout) {
+    public CaseLayout(CaseService caseService, HeaderLayout headerLayout, HistoryLayout historyLayout) {
         this.caseService = caseService;
         this.headerLayout = headerLayout;
-        //add(showCases());
+        this.historyLayout = historyLayout;
     }
 
     public VerticalLayout showCases() {
         add(headerLayout);
 
         Grid<Case> cases = new Grid<>();
+        cases.addSelectionListener((SelectionListener<Grid<Case>, Case>) selectionEvent -> {
+            VaadinService.getCurrentRequest().setAttribute("case", selectionEvent.getFirstSelectedItem().get());
+            removeAll();
+            add(historyLayout.showHistory());
+        });
 
         Car carId = ((Car) VaadinService.getCurrentRequest().getAttribute("car"));
         List<Case> listCars = caseService.getCasesByOwnerAndCar(carId.getId());

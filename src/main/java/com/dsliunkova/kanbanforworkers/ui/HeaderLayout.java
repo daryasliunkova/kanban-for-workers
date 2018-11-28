@@ -14,11 +14,15 @@ public class HeaderLayout extends VerticalLayout{
     public HeaderLayout() {
         AppLayout appLayout = new AppLayout();
         AppLayoutMenu menu = appLayout.createMenu();
+        AppLayoutMenuItem userMenuItem = new AppLayoutMenuItem(VaadinIcon.USER_CARD.create(), "User info");
+        userMenuItem.setRoute("user");
         AppLayoutMenuItem carMenuItem = new AppLayoutMenuItem(VaadinIcon.CAR.create(), "My cars");
         carMenuItem.setRoute("car");
         AppLayoutMenuItem caseMenuItem = new AppLayoutMenuItem(VaadinIcon.COGS.create(), "Cases");
         caseMenuItem.setRoute("case");
-        menu.addMenuItems(carMenuItem, caseMenuItem);
+        AppLayoutMenuItem historyMenuItem = new AppLayoutMenuItem(VaadinIcon.ARCHIVE.create(), "History");
+        caseMenuItem.setRoute("history");
+        menu.addMenuItems(userMenuItem, carMenuItem, caseMenuItem, historyMenuItem);
         add(appLayout);
     }
 }
