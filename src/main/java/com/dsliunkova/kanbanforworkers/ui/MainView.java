@@ -16,12 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Route
 public class MainView extends VerticalLayout {
     private UserService userService;
-    private CarLayout carLayout;
+    private HeaderLayout headerLayout;
 
     @Autowired
-    public MainView(UserService userService, CarLayout carLayout) {
+    public MainView(UserService userService, HeaderLayout headerLayout) {
         this.userService = userService;
-        this.carLayout = carLayout;
+        this.headerLayout = headerLayout;
 
         Dialog dialog = new Dialog();
         dialog.setWidth("400px");
@@ -44,7 +44,7 @@ public class MainView extends VerticalLayout {
 
             Notification.show(userService.getUserByLoginAndPassword(loginText, passwordText).toString());
             VaadinService.getCurrentRequest().setAttribute("user", userService.getUserByLoginAndPassword(loginText, passwordText));
-            add(carLayout.showCars());
+            this.getUI().ifPresent(ui -> ui.navigate("main"));
             dialog.close();
         });
 

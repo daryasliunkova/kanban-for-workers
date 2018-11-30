@@ -4,5 +4,5 @@ import org.springframework.stereotype.Component;
 
 
 public enum Status {
-    NOT_STARTED, STARTED, IN_PROGRESS, IN_REVIEW, DONE, RE_OPENED;
+    BROKEN, PAUSE, IN_PROGRESS, READY, REJECT, OK;
 }

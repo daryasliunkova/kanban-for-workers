@@ -5,7 +5,7 @@ INSERT INTO Car(id, owner_id, make, car_number, model, color, year, vin)
 VALUES(1, 1, 'BMW', '3355 EB-3', 'X5', 'black', 2017, 'jk45j323');
 
 INSERT INTo repair_case(id, case_id, car_id, user_id, name, description, start_date, end_date, case_status)
-VALUES(1, null, 1, 1, 'Main problem', 'Problem with accumulator', '2018-11-26', null, 'STARTED');
+VALUES(1, null, 1, 1, 'Main problem', 'Problem with accumulator', '2018-11-26', null, 'BROKEN');
 
 INSERT INTO history_item(id, issue_id, user_id, status, change_date, description, old_value, new_value)
 VALUES(1, 1, 1, 'ADDED', '2018-11-28', 'Case added', null, null)

@@ -5,38 +5,39 @@ import com.dsliunkova.kanbanforworkers.entities.Case;
 import com.dsliunkova.kanbanforworkers.entities.HistoryItem;
 import com.dsliunkova.kanbanforworkers.services.HistoryItemService;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
 import java.util.List;
 
 @Component
-@Route("history")
-public class HistoryLayout extends VerticalLayout{
-    private HeaderLayout headerLayout;
+public class HistoryLayout {
     private HistoryItemService historyItemService;
 
     @Autowired
-    public HistoryLayout(HeaderLayout headerLayout, HistoryItemService historyItemService) {
-        this.headerLayout = headerLayout;
+    public HistoryLayout(HistoryItemService historyItemService) {
         this.historyItemService = historyItemService;
     }
 
-    public VerticalLayout showHistory() {
-        add(headerLayout);
+    public Div showHistory() {
         Grid<HistoryItem> history = new Grid<>();
 
-        Case caseId = ((Case) VaadinService.getCurrentRequest().getAttribute("case"));
-        List<HistoryItem> listCars = historyItemService.getHistoryByCaseId(caseId.getId());
+     //   Case caseId = ((Case) VaadinService.getCurrentRequest().getAttribute("case"));
+        //if (caseId != null) {
+            List<HistoryItem> listCars = historyItemService.getHistoryByCaseId(1);
 
-        history.setItems(listCars);
-        history.addColumn(HistoryItem::getChangeDate).setHeader("Change date");
-        history.addColumn(HistoryItem::getStatus).setHeader("Status");
-        history.addColumn(HistoryItem::getDescription).setHeader("Description");
-        add(history);
-        return this;
+            history.setItems(listCars);
+            history.addColumn(HistoryItem::getChangeDate).setHeader("Change date");
+            history.addColumn(HistoryItem::getStatus).setHeader("Status");
+            history.addColumn(HistoryItem::getDescription).setHeader("Description");
+    //    }
+        Div div = new Div();
+        div.add(history);
+        return div;
     }
 }
