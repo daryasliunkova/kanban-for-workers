@@ -10,12 +10,14 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.util.List;
 
 @Component
+@Scope("prototype")
 public class HistoryLayout {
     private HistoryItemService historyItemService;
 

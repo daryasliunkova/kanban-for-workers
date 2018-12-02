@@ -1,5 +1,6 @@
 package com.dsliunkova.kanbanforworkers.ui;
 
+import com.dsliunkova.kanbanforworkers.entities.Cache;
 import com.dsliunkova.kanbanforworkers.services.UserService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -17,11 +18,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class MainView extends VerticalLayout {
     private UserService userService;
     private HeaderLayout headerLayout;
+    private Cache cache;
 
     @Autowired
-    public MainView(UserService userService, HeaderLayout headerLayout) {
+    public MainView(UserService userService, HeaderLayout headerLayout, Cache cache) {
         this.userService = userService;
         this.headerLayout = headerLayout;
+        this.cache = cache;
 
         Dialog dialog = new Dialog();
         dialog.setWidth("400px");
@@ -43,7 +46,7 @@ public class MainView extends VerticalLayout {
             String passwordText = password.getValue();
 
             Notification.show(userService.getUserByLoginAndPassword(loginText, passwordText).toString());
-            VaadinService.getCurrentRequest().setAttribute("user", userService.getUserByLoginAndPassword(loginText, passwordText));
+            cache.setUser(userService.getUserByLoginAndPassword(loginText, passwordText));
             this.getUI().ifPresent(ui -> ui.navigate("main"));
             dialog.close();
         });
